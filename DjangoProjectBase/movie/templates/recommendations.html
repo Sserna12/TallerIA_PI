@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1 class="mb-4">Movie Recommendation</h1>
+
+    <form method="GET">
+        <div class="mb-3">
+            <label for="prompt" class="form-label">
+                Enter a movie recommendation prompt:
+            </label>
+
+            <input
+                type="text"
+                class="form-control"
+                name="prompt"
+                id="prompt"
+                value="{{ prompt|default:'' }}"
+                placeholder="Example: película de aventura y fantasía"
+                required
+            />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Recommend Movie
+        </button>
+    </form>
+
+    {% if recommended_movie %}
+
+        <hr class="my-4">
+
+        <h3>Recommended Movie</h3>
+
+        <div class="row">
+            <div class="col-md-4">
+
+                <div class="card">
+
+                    <img
+                        src="{{ recommended_movie.image.url }}"
+                        class="card-img-top"
+                        alt="{{ recommended_movie.title }}"
+                    >
+
+                    <div class="card-body">
+
+                        <h5 class="card-title fw-bold">
+                            {{ recommended_movie.title }}
+                        </h5>
+
+                        <p class="card-text">
+                            {{ recommended_movie.description }}
+                        </p>
+
+                        {% if recommended_movie.genre %}
+                        <p class="card-text">
+                            <strong>Genre:</strong>
+                            {{ recommended_movie.genre }}
+                        </p>
+                        {% endif %}
+
+                        {% if recommended_movie.year %}
+                        <p class="card-text">
+                            <strong>Year:</strong>
+                            {{ recommended_movie.year }}
+                        </p>
+                        {% endif %}
+
+                        <p class="card-text">
+                            <strong>Similarity:</strong>
+                            {{ similarity }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock content %}
